@@ -1,0 +1,25 @@
+{
+    "compilerOptions": {
+        "module": "NodeNext",
+        "moduleResolution": "NodeNext",
+        "baseUrl": "./src",
+        "outDir": "./dist",
+        "sourceMap": true,
+        "noImplicitAny": true,
+        "typeRoots": [
+            "./node_modules/@types",
+            "./types"
+        ],
+        "esModuleInterop": true
+    },
+    "include": [
+        "./src/**/*",
+        "./types/**/*.d.ts",
+        "./.eslintrc.js",
+        "./test/**/*"
+    ],
+    "exclude": [
+        "node_modules",
+        "dist",
+    ]
+}
