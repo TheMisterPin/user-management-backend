@@ -26,7 +26,7 @@ const registerUser = async (req : Request, res : Response) => {
 
     res.status(201).json({ message: 'User registered successfully', user })
   } catch (error) {
-    res.status(400).json({ error: 'User registration failed' })
+    res.status(500).json({ error: 'User registration failed' })
   }
 }
 
@@ -35,7 +35,7 @@ const loginUser = async (req: Request, res: Response) => {
   const user = await prisma.user.findUnique({ where: { email } })
 
   if (!user) {
-    return res.status(404).json('User not found')
+    return res.status(404).json({ error: 'User not found' })
   }
   const userID = user.id
 
@@ -43,13 +43,13 @@ const loginUser = async (req: Request, res: Response) => {
     const correctPassword = compareSync(password, user.password)
 
     if (!correctPassword) {
-      return res.status(401).json('Invalid credentials')
+      return res.status(401).json({ error: 'Invalid credentials' })
     }
     const token = jwt.sign({ userID }, secret, { expiresIn: '15min' })
 
     res.status(200).json({ message: `Welcome Back ${user.username}`, user, accessToken: token })
   } catch (error) {
-    res.status(500).json('An error occurred during login')
+    res.status(500).json({ message: 'An error occurred during login' })
   }
 }
 
