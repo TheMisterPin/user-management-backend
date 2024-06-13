@@ -6,7 +6,7 @@ const authMiddleware = async (req: Request, res: Response, next: NextFunction) =
   const token = req.headers.authorization?.split(' ')[1]
 
   if (!token) {
-    return res.status(401).json({ error: 'Access token is missing or invalid' })
+    return res.status(401).json({ message: 'Access token is missing or invalid' })
   }
 
   try {
@@ -14,13 +14,13 @@ const authMiddleware = async (req: Request, res: Response, next: NextFunction) =
     const user = await prisma.user.findUnique({ where: { id: decoded.userID } })
 
     if (!user) {
-      return res.status(401).json({ error: 'Authentication failed' })
+      return res.status(401).json({ message: 'Authentication failed' })
     }
 
     req.user = user
     next()
   } catch (error) {
-    return res.status(403).json({ error: 'Forbidden' })
+    return res.status(403).json({ message: 'Forbidden' })
   }
 }
 

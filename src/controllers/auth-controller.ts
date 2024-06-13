@@ -8,12 +8,12 @@ const registerUser = async (req : Request, res : Response) => {
   const hashedPassword = await bcrypt.hash(password, 10)
 
   if (!username || !email || !password) {
-    return res.status(400).json({ error: 'All fields are required' })
+    return res.status(400).json({ message: 'All fields are required' })
   }
   const userExists = await prisma.user.findUnique({ where: { email } })
 
   if (userExists) {
-    return res.status(400).json({ error: 'User already exists' })
+    return res.status(400).json({ message: 'User already exists' })
   }
   try {
     const user = await prisma.user.create({
@@ -26,7 +26,7 @@ const registerUser = async (req : Request, res : Response) => {
 
     res.status(201).json({ message: 'User registered successfully', user })
   } catch (error) {
-    res.status(500).json({ error: 'User registration failed' })
+    res.status(500).json({ message: 'User registration failed' })
   }
 }
 
@@ -35,7 +35,7 @@ const loginUser = async (req: Request, res: Response) => {
   const user = await prisma.user.findUnique({ where: { email } })
 
   if (!user) {
-    return res.status(404).json({ error: 'User not found' })
+    return res.status(404).json({ message: 'User not found' })
   }
   const userID = user.id
 
@@ -43,7 +43,7 @@ const loginUser = async (req: Request, res: Response) => {
     const correctPassword = compareSync(password, user.password)
 
     if (!correctPassword) {
-      return res.status(401).json({ error: 'Invalid credentials' })
+      return res.status(401).json({ message: 'Invalid credentials' })
     }
     const token = jwt.sign({ userID }, secret, { expiresIn: '15min' })
 
