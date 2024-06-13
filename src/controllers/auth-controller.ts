@@ -47,7 +47,7 @@ const loginUser = async (req: Request, res: Response) => {
     }
     const token = jwt.sign({ userID }, secret, { expiresIn: '15min' })
 
-    res.status(200).json({ message: `Welcome Back ${user.username}`, accessToken: token })
+    res.status(200).json({ message: `Welcome Back ${user.username}`, user, accessToken: token })
   } catch (error) {
     res.status(500).json('An error occurred during login')
   }

@@ -3,7 +3,8 @@ import { Request, Response } from 'express'
 import { prisma } from './utils'
 
 export const addFriend = async (req: Request, res: Response) => {
-  const { userId, friendId } = req.body
+  const { friendId } = req.body
+  const userId = req.user.id
 
   try {
     const user = await prisma.user.update({
@@ -87,7 +88,6 @@ export const me = async (req: Request, res: Response) => {
       include: {
         friends: true,
       },
-
     })
 
     res.status(200).json(currentUser)
