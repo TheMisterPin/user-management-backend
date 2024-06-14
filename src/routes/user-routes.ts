@@ -12,6 +12,6 @@ router.get('/', me)
 router.get('/all', getUsers)
 router.get('/friends', getFriends)
 router.put('/update-username', updateUsername)
-router.get('/:id', getUser)
+router.get('/find/:id', getUser)
 
 export default router
