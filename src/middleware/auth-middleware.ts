@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken'
 import { prisma, secret } from '../controllers/utils'
 
 const authMiddleware = async (req: Request, res: Response, next: NextFunction) => {
-  const token = req.headers.authorization?.split(' ')[1]
+  const token = req.headers.authorization
 
   if (!token) {
     return res.status(401).json({ message: 'Access token is missing or invalid' })
