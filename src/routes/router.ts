@@ -11,7 +11,7 @@ app.use(express.json())
 app.use(cors())
 
 app.use('/auth', authRoutes)
-app.use('/users', userRoutes, authMiddleware)
+app.use('/users', [authMiddleware], userRoutes)
 app.get('/', (req, res) => {
   res.send('Hello World!')
 })

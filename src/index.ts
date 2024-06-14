@@ -10,7 +10,7 @@ const PORT = process.env.PORT || 3000
 //   res.sendFile(path.join(__dirname, 'views', 'index.html'))
 // })
 app.get('/', (req, res) => {
-  res.send('Hellold Wor!')
+  res.send('user management App')
 })
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
