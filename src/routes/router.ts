@@ -18,8 +18,4 @@ app.use(express.json())
 app.use('/auth', authRoutes)
 app.use('/users', [authMiddleware], userRoutes)
 
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
-
 export default app
